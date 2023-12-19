@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  justify-content: center;
+}
+
+.nav-top-fixed {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
