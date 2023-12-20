@@ -3,8 +3,13 @@ name: Deploy Site Files
 on:
   push:
     branches: [ "main" ]
+    paths-ignore: # 下列文件的变更不触发部署，可以自行添加
+      - "docs/**"
   pull_request:
     branches: [ "main" ]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -34,9 +39,7 @@ jobs:
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        token: ${{ secrets.DEPLOY_TOKEN }}
-        branch: main
+        branch: website
         folder: dist/
-        target-folder: docs/
         clean: true
 
