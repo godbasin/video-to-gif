@@ -34,8 +34,9 @@ jobs:
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-        BRANCH: website
-        FOLDER: dist/
-        CLEAN: true
+        token: ${{ secrets.DEPLOY_TOKEN }}
+        branch: main
+        folder: dist/
+        target-folder: docs/
+        clean: true
 
