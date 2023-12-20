@@ -7,6 +7,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
   },
+  base: '/video-to-gif/',
   server: {
     headers: {
       "Cross-Origin-Opener-Policy": "same-origin",

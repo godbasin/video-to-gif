@@ -24,9 +24,9 @@ function App() {
     // toBlobURL is used to bypass CORS issue, urls with the same
     // domain can be used directly.
     await ffmpeg.load({
-      coreURL: await toBlobURL(`${location.origin}/ffmpeg/ffmpeg-core.js`, "text/javascript"),
+      coreURL: await toBlobURL(`${location.origin}/video-to-gif/ffmpeg/ffmpeg-core.js`, "text/javascript"),
       wasmURL: await toBlobURL(
-        `${location.origin}/ffmpeg/ffmpeg-core.wasm?url`,
+        `${location.origin}/video-to-gif/ffmpeg/ffmpeg-core.wasm?url`,
         "application/wasm"
       ),
     });
