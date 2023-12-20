@@ -1,27 +1,22 @@
-# React + TypeScript + Vite
+# 被删的视频转 Gif 小工具
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+因为想给家里啊猪猫猫和小朋友们做表情包，发现网上免费的工具转出来的 Gif 图都太大啦，而手机上好用的 APP 又要花钱，所以就打算自己做一个啦~
 
-Currently, two official plugins are available:
+## 简单介绍
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+使用到的框架和库包括：
+- React + Vite + Typescript
+- ffmpeg
 
-## Expanding the ESLint configuration
+## 如何使用
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+``` cmd
+// 安装依赖
+npm install
 
-- Configure the top-level `parserOptions` property like this:
+// 本地构建
+npm run dev
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+// 打包构建
+npm run build
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

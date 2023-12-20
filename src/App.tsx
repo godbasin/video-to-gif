@@ -57,7 +57,7 @@ function App() {
   return loaded ? (
     <>
       <Container fluid="sm">
-        <Row>
+        <Row className="mt-5">
           <Col>
             <LoadVideo videoUrl={videoUrl} onFileChange={onFileChange} />
             {videoUrl && (
