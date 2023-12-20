@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths-ignore: # 下列文件的变更不触发部署，可以自行添加
       - "docs/**"
+      - README.md
   pull_request:
     branches: [ "main" ]
 
