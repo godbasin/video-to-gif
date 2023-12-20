@@ -32,7 +32,7 @@ jobs:
         cp README.md dist/
 
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@3.6.2
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
         BRANCH: website
