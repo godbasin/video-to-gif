@@ -4,26 +4,45 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { IGifInfo } from '../interfaces';
+import { TRANSCODE_STATUES } from '../interfaces/common';
 
 interface IProps {
   videoUrl: string,
   startTime: number,
   endTime: number,
-  setGif: (gif: string) => void,
+  transcodeStatus: TRANSCODE_STATUES,
+  setLoadingPercentage: (percentage: number) => void,
+  setTranscodeStatus: (status: TRANSCODE_STATUES) => void,
+  setGifInfos: (fun: (gifInfos: IGifInfo[]) => IGifInfo[]) => void,
 }
 
-const VideoSetting = forwardRef(function VideoSetting({ videoUrl, startTime, endTime, setGif }: IProps, ffmpegRef: any) {
+const VideoSetting = forwardRef(function VideoSetting({
+  videoUrl,
+  startTime,
+  endTime,
+  transcodeStatus,
+  setTranscodeStatus,
+  setGifInfos,
+  setLoadingPercentage,
+}: IProps, ffmpegRef: any) {
   const [fps = 12, setFps] = useState<number | undefined>();
   const [width = 250, setWidth] = useState<number | undefined>();
   const [validated, setValidated] = useState(false);
   const ffmpeg = ffmpegRef.current;
 
   const convertToGif = async () => {
+    if(transcodeStatus === TRANSCODE_STATUES.TRANSCODING) {
+      return;
+    }
+   try {
+    setLoadingPercentage(0);
+    setTranscodeStatus(TRANSCODE_STATUES.TRANSCODING);
     await ffmpeg.writeFile('test.mp4', await fetchFile(videoUrl));
     await ffmpeg.exec([
       '-i', 'test.mp4',
-      '-t', `${startTime}`,
-      '-ss', `${endTime - startTime}`,
+      '-t', `${endTime - startTime}`,
+      '-ss', `${startTime}`,
       '-filter_complex',
       `[0:v] fps=${fps},scale=w=${width}:h=-1,split [a][b];[a] palettegen [p];[b][p] paletteuse`,
       '-f', 'gif',
@@ -31,7 +50,17 @@ const VideoSetting = forwardRef(function VideoSetting({ videoUrl, startTime, end
     ]);
     const data: any = await ffmpeg.readFile('out.gif');
     const url = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
-    setGif(url);
+    setGifInfos(oldInfos => {
+      return [...oldInfos, {
+        url,
+      }];
+    });
+    setTranscodeStatus(TRANSCODE_STATUES.SUCCESS);
+    setTranscodeStatus(TRANSCODE_STATUES.SUCCESS);
+   } catch (error) {
+    console.log(error);
+    setTranscodeStatus(TRANSCODE_STATUES.FAILED);
+   }
   }
   
   const checkValid = () => {
@@ -79,7 +108,7 @@ const VideoSetting = forwardRef(function VideoSetting({ videoUrl, startTime, end
         </Form.Group>
         <Form.Group as={Row} className="mb-3" >
           <Col sm={{ span: 10, offset: 2 }}>
-            <Button disabled={!validated} onClick={convertToGif}>转换为 Gif</Button>
+            <Button disabled={!validated || transcodeStatus === TRANSCODE_STATUES.TRANSCODING} onClick={convertToGif}>转换为 Gif</Button>
           </Col>
         </Form.Group>
       </Form>

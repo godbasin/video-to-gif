@@ -7,19 +7,27 @@ import { toBlobURL } from "@ffmpeg/util";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { IGifInfo } from "./interfaces";
+import { TRANSCODE_STATUES } from "./interfaces/common";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [videoUrl, setVideoUrl] = useState('');
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
-  const [gif, setGif] = useState('');
+  const [loadingPercentage, setLoadingPercentage] = useState(0);
+  const [gifInfos, setGifInfos] = useState<IGifInfo[]>([]);
+  const [transcodeStatus, setTranscodeStatus] = useState(TRANSCODE_STATUES.INIT);
   const ffmpegRef = useRef(new FFmpeg());
 
   const load = async () => {
     const ffmpeg = ffmpegRef.current;
     ffmpeg.on("log", ({ message }) => {
       console.log('ffmpeg message: ', message);
+    });
+    ffmpeg.on('progress', ({ progress, time }) => {
+      setLoadingPercentage(progress);
+      console.log(`ffmpeg progress: ${progress}. transcoded time: ${time}`);
     });
     // toBlobURL is used to bypass CORS issue, urls with the same
     // domain can be used directly.
@@ -59,22 +67,35 @@ function App() {
       <Container fluid="sm">
         <Row className="mt-5">
           <Col>
-            <LoadVideo videoUrl={videoUrl} onFileChange={onFileChange} />
+          <Row>
+          <LoadVideo videoUrl={videoUrl} onFileChange={onFileChange} />
             {videoUrl && (
               <div className="btn-group">
                 <a className="btn btn-warning" onClick={saveStartTime}>设为开始时间</a>
                 <a className="btn btn-success" onClick={saveEndTime}>设为结束时间</a>
               </div>
             )}
+          </Row>
+          <Row>
+          {videoUrl && (
+            <VideoSetting
+              videoUrl={videoUrl}
+              ref={ffmpegRef}
+              startTime={startTime}
+              endTime={endTime}
+              setLoadingPercentage={setLoadingPercentage}
+              transcodeStatus={transcodeStatus}
+              setTranscodeStatus={setTranscodeStatus}
+              setGifInfos={setGifInfos} />
+          )}
+          </Row>
           </Col>
           <Col>
-            <LoadGif gif={gif} />
+            <LoadGif
+              loadingPercentage={loadingPercentage}
+              transcodeStatus={transcodeStatus}
+              gifInfos={gifInfos} />
           </Col>
-        </Row>
-        <Row className="mt-3">
-          {videoUrl && (
-            <VideoSetting videoUrl={videoUrl} ref={ffmpegRef} startTime={startTime} endTime={endTime} setGif={setGif} />
-          )}
         </Row>
       </Container>
     </>

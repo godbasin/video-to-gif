@@ -7,9 +7,14 @@ body {
   justify-content: center;
 }
 
+#root {
+  padding: 60px;
+}
+
 .nav-top-fixed {
   position: fixed !important;
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 999;
 }
