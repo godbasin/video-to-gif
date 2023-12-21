@@ -1,4 +1,4 @@
-@charset "UTF-8";input[type=file]{display:none}.file-input-label{background-color:#f8f9fa}body{margin:0;display:flex;place-items:center;min-width:320px;min-height:100vh;justify-content:center}.nav-top-fixed{position:fixed!important;top:0;left:0;width:100%}/*!
+@charset "UTF-8";input[type=file]{display:none}.file-input-label{background-color:#f8f9fa}body{margin:0;display:flex;place-items:center;min-width:320px;min-height:100vh;justify-content:center}#root{padding:60px}.nav-top-fixed{position:fixed!important;top:0;left:0;width:100%;z-index:999}/*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
