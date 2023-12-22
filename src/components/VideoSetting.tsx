@@ -11,6 +11,11 @@ interface IProps {
   videoUrl: string,
   startTime: number,
   endTime: number,
+  cropX: number,
+  cropY: number,
+  cropWidth: number,
+  cropHeight: number,
+  isCropped: boolean,
   transcodeStatus: TRANSCODE_STATUES,
   setLoadingPercentage: (percentage: number) => void,
   setTranscodeStatus: (status: TRANSCODE_STATUES) => void,
@@ -21,6 +26,11 @@ const VideoSetting = forwardRef(function VideoSetting({
   videoUrl,
   startTime,
   endTime,
+  cropX,
+  cropY,
+  cropWidth,
+  cropHeight,
+  isCropped,
   transcodeStatus,
   setTranscodeStatus,
   setGifInfos,
@@ -39,12 +49,13 @@ const VideoSetting = forwardRef(function VideoSetting({
     setLoadingPercentage(0);
     setTranscodeStatus(TRANSCODE_STATUES.TRANSCODING);
     await ffmpeg.writeFile('test.mp4', await fetchFile(videoUrl));
+    const cropParam = isCropped ? `,crop=${cropWidth}:${cropHeight}:${cropX}:${cropY}` : ''; 
     await ffmpeg.exec([
       '-i', 'test.mp4',
       '-t', `${endTime - startTime}`,
       '-ss', `${startTime}`,
       '-filter_complex',
-      `[0:v] fps=${fps},scale=w=${width}:h=-1,split [a][b];[a] palettegen [p];[b][p] paletteuse`,
+      `[0:v] fps=${fps},scale=w=${width}:h=-1${cropParam},split [a][b];[a] palettegen [p];[b][p] paletteuse`,
       '-f', 'gif',
       'out.gif',
     ]);
@@ -84,6 +95,22 @@ const VideoSetting = forwardRef(function VideoSetting({
             <Form.Control.Feedback type="invalid">请选择 Gif 开始时间</Form.Control.Feedback>
           </Col>
         </Form.Group>
+        <Form.Group as={Row} className="mb-3" >
+          <Form.Label>结束时间（秒）：</Form.Label>
+          <Col>
+            <Form.Control disabled type="number" value={endTime} isInvalid={endTime === undefined || endTime <= startTime} />
+            <Form.Control.Feedback type="invalid">结束时间必须大于开始时间</Form.Control.Feedback>
+          </Col>
+        </Form.Group>
+        {
+          isCropped &&
+          <Form.Group as={Row} className="mb-3" >
+            <Form.Label>裁剪：</Form.Label>
+            <Col>
+              <Form.Control disabled type="text" value={`x=${cropX}:y=${cropY}:width=${cropWidth}:height=${cropHeight}`} />
+            </Col>
+          </Form.Group>
+        }
         <Form.Group as={Row} className="mb-3" >
           <Form.Label>结束时间（秒）：</Form.Label>
           <Col>

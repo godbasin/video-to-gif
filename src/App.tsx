@@ -15,6 +15,12 @@ function App() {
   const [videoUrl, setVideoUrl] = useState('');
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
+  const [isCropping, setIsCropping] = useState(false);
+  const [isCropped, setIsCropped] = useState(false);
+  const [cropX, setCropX] = useState(0);
+  const [cropY, setCropY] = useState(0);
+  const [cropWidth, setCropWidth] = useState(0);
+  const [cropHeight, setCropHeight] = useState(0);
   const [loadingPercentage, setLoadingPercentage] = useState(0);
   const [gifInfos, setGifInfos] = useState<IGifInfo[]>([]);
   const [transcodeStatus, setTranscodeStatus] = useState(TRANSCODE_STATUES.INIT);
@@ -55,7 +61,7 @@ function App() {
   const onFileChange = (event: { target: HTMLInputElement }) => {
     const file = event.target.files?.[0];
     if(!file) return;
-    setVideoUrl(URL.createObjectURL(file))
+    setVideoUrl(URL.createObjectURL(file));
   };
 
   useEffect(() => {
@@ -68,11 +74,28 @@ function App() {
         <Row className="mt-5">
           <Col>
           <Row>
-          <LoadVideo videoUrl={videoUrl} onFileChange={onFileChange} />
+          <LoadVideo
+            videoUrl={videoUrl}
+            isCropping={isCropping}
+            cropX={cropX} setCropX={setCropX}
+            cropY={cropY} setCropY={setCropY}
+            cropWidth={cropWidth} setCropWidth={setCropWidth}
+            cropHeight={cropHeight} setCropHeight={setCropHeight}
+            onFileChange={onFileChange} />
             {videoUrl && (
               <div className="btn-group">
-                <a className="btn btn-warning" onClick={saveStartTime}>设为开始时间</a>
-                <a className="btn btn-success" onClick={saveEndTime}>设为结束时间</a>
+                {
+                  isCropping ?
+                  <>
+                    <a className="btn btn-info" onClick={() => {setIsCropped(true);setIsCropping(false)}}>确定</a>
+                    <a className="btn btn-info" onClick={() => {setIsCropped(false);setIsCropping(false)}}>取消裁剪</a>
+                  </>
+                  : <>
+                      <a className="btn btn-warning" onClick={saveStartTime}>设为开始时间</a>
+                      <a className="btn btn-info" onClick={() => setIsCropping(true)}>设置裁剪宽高</a>
+                      <a className="btn btn-success" onClick={saveEndTime}>设为结束时间</a>
+                    </>
+                }
               </div>
             )}
           </Row>
@@ -83,6 +106,11 @@ function App() {
               ref={ffmpegRef}
               startTime={startTime}
               endTime={endTime}
+              cropX={cropX}
+              cropY={cropY}
+              cropWidth={cropWidth}
+              cropHeight={cropHeight}
+              isCropped={isCropped}
               setLoadingPercentage={setLoadingPercentage}
               transcodeStatus={transcodeStatus}
               setTranscodeStatus={setTranscodeStatus}

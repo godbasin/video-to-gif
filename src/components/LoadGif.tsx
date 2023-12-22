@@ -27,7 +27,7 @@ export default function LoadGif({ gifInfos, loadingPercentage, transcodeStatus }
   return (
     <>
       {gifInfos.map(({ url }) =>
-        <Card style={{ width: '18rem' }}>
+        <Card key={url} style={{ width: '18rem' }}>
           <Card.Img variant="top" src={url} />
           <Card.Body>
             <Button variant="primary" onClick={async () => await downloadGif(url)}>下载 Gif</Button>
