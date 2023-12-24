@@ -34,7 +34,7 @@ export default class LoadVideo extends Component<IProps> {
               className="object-fit-fill border rounded"
               controls
               style={{ display: isCropping ? 'none' : 'inline-block' }}
-              width="250"
+              width="350"
               src={videoUrl} />
             <CanvasCrop
               isCropping={isCropping}

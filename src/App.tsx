@@ -83,16 +83,16 @@ function App() {
             cropHeight={cropHeight} setCropHeight={setCropHeight}
             onFileChange={onFileChange} />
             {videoUrl && (
-              <div className="btn-group">
+              <div className="btn-group mt-2 mb-3">
                 {
                   isCropping ?
                   <>
-                    <a className="btn btn-info" onClick={() => {setIsCropped(true);setIsCropping(false)}}>确定</a>
-                    <a className="btn btn-info" onClick={() => {setIsCropped(false);setIsCropping(false)}}>取消裁剪</a>
+                    <a className="btn btn-primary" onClick={() => {setIsCropped(true);setIsCropping(false)}}>确定</a>
+                    <a className="btn btn-secondary" onClick={() => {setIsCropped(false);setIsCropping(false)}}>取消裁剪</a>
                   </>
                   : <>
                       <a className="btn btn-warning" onClick={saveStartTime}>设为开始时间</a>
-                      <a className="btn btn-info" onClick={() => setIsCropping(true)}>设置裁剪宽高</a>
+                      <a className="btn btn-info" onClick={() => setIsCropping(true)}>裁剪宽高</a>
                       <a className="btn btn-success" onClick={saveEndTime}>设为结束时间</a>
                     </>
                 }

@@ -112,13 +112,6 @@ const VideoSetting = forwardRef(function VideoSetting({
           </Form.Group>
         }
         <Form.Group as={Row} className="mb-3" >
-          <Form.Label>结束时间（秒）：</Form.Label>
-          <Col>
-            <Form.Control disabled type="number" value={endTime} isInvalid={endTime === undefined || endTime <= startTime} />
-            <Form.Control.Feedback type="invalid">结束时间必须大于开始时间</Form.Control.Feedback>
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row} className="mb-3" >
           <Form.Label>fps 帧率：</Form.Label>
           <Col>
             <Form.Control type="number" placeholder='默认值：12' value={fps} onChange={(e) => setFps(Number(e.target.value))} isInvalid={!fps} />
