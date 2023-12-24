@@ -14,6 +14,7 @@ interface IProps {
   cropX: number;
   cropY: number;
   cropWidth: number;
+  cropOriginWidth: number;
   cropHeight: number;
   isCropped: boolean;
   transcodeStatus: TRANSCODE_STATUES;
@@ -30,6 +31,7 @@ const VideoSetting = forwardRef(function VideoSetting(
     cropX,
     cropY,
     cropWidth,
+    cropOriginWidth,
     cropHeight,
     isCropped,
     transcodeStatus,
@@ -52,8 +54,9 @@ const VideoSetting = forwardRef(function VideoSetting(
       setLoadingPercentage(0);
       setTranscodeStatus(TRANSCODE_STATUES.TRANSCODING);
       await ffmpeg.writeFile("test.mp4", await fetchFile(videoUrl));
+      const cropRatio = width /cropOriginWidth;
       const cropParam = isCropped
-        ? `,crop=${cropWidth}:${cropHeight}:${cropX}:${cropY}`
+        ? `,crop=${cropWidth*cropRatio}:${cropHeight*cropRatio}:${cropX*cropRatio}:${cropY*cropRatio}`
         : "";
       await ffmpeg.exec([
         "-i",

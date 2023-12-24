@@ -11,6 +11,7 @@ interface IProps {
   setCropY: (y: number) => void;
   cropWidth: number;
   setCropWidth: (w: number) => void;
+  setCropOriginWidth: (w: number) => void;
   cropHeight: number;
   setCropHeight: (h: number) => void;
 }
@@ -50,6 +51,7 @@ export default class CanvasCrop extends Component<IProps, IStatus> {
       width,
       height,
     });
+    this.props.setCropOriginWidth(width);
   }
 
   componentDidUpdate(prevProps) {

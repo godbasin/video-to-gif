@@ -11,6 +11,8 @@ interface IProps {
   setCropY: (y: number) => void;
   cropWidth: number;
   setCropWidth: (w: number) => void;
+  cropOriginWidth: number;
+  setCropOriginWidth: (w: number) => void;
   cropHeight: number;
   setCropHeight: (h: number) => void;
   onFileChange: (e: { target: HTMLInputElement }) => void;
@@ -27,6 +29,7 @@ export default class LoadVideo extends Component<IProps> {
       setCropY,
       cropWidth,
       setCropWidth,
+      setCropOriginWidth,
       cropHeight,
       setCropHeight,
     } = this.props;
@@ -53,6 +56,7 @@ export default class LoadVideo extends Component<IProps> {
               setCropY={setCropY}
               cropWidth={cropWidth}
               setCropWidth={setCropWidth}
+              setCropOriginWidth={setCropOriginWidth}
               cropHeight={cropHeight}
               setCropHeight={setCropHeight}
             />
