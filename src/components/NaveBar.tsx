@@ -1,5 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
+import Sponsor from "./Sponsor";
 
 export default function Navebar() {
   return (
@@ -16,6 +17,7 @@ export default function Navebar() {
             >
               Github
             </a>
+            <Sponsor />
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

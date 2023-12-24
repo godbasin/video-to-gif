@@ -11,7 +11,6 @@ interface IProps {
   setCropY: (y: number) => void;
   cropWidth: number;
   setCropWidth: (w: number) => void;
-  cropOriginWidth: number;
   setCropOriginWidth: (w: number) => void;
   cropHeight: number;
   setCropHeight: (h: number) => void;

@@ -3,6 +3,7 @@ import { IGifInfo } from "../interfaces";
 import { TRANSCODE_STATUES } from "../interfaces/common";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Spinner from 'react-bootstrap/Spinner';
 
 interface IProps {
   loadingPercentage: number;
@@ -49,7 +50,8 @@ export default function LoadGif({
       ))}
       {transcodeStatus === TRANSCODE_STATUES.TRANSCODING && (
         <Card>
-          <Card.Body>
+          <Card.Body style={{textAlign: "center"}}>
+            <Spinner animation="border" variant="primary" />
             <ProgressBar className="mt-3 mb-3" animated now={percentage} />
           </Card.Body>
         </Card>

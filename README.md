@@ -33,3 +33,11 @@ npm run dev
 // 打包构建
 npm run build
 ```
+
+## 赞赏码
+
+**欢迎各种花式赞赏：**
+
+![image](https://github-imglib-1255459943.cos.ap-chengdu.myqcloud.com/2code2.jpg)
+
+**码生艰难，给我家猪囤点猫粮了喵~**
