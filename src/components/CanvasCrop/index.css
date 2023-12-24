@@ -1,9 +1,9 @@
 .video-canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 #canvas {
-    display: none;
+  display: none;
 }

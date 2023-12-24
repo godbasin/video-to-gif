@@ -3,18 +3,18 @@ import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
 interface IProps {
-    imageUrl: string,
-    width: number,
-    height: number,
-    // cropX: number,
-    // cropY: number,
-    // cropWidth: number,
-    // cropHeight: number,
-    setCropX: (x: number) => void,
-    setCropY: (y: number) => void,
-    setCropWidth: (w: number) => void,
-    setCropHeight: (h: number) => void,
-  }
+  imageUrl: string;
+  width: number;
+  height: number;
+  // cropX: number,
+  // cropY: number,
+  // cropWidth: number,
+  // cropHeight: number,
+  setCropX: (x: number) => void;
+  setCropY: (y: number) => void;
+  setCropWidth: (w: number) => void;
+  setCropHeight: (h: number) => void;
+}
 
 export default function CropperContainer({
   // cropX,
@@ -33,7 +33,7 @@ export default function CropperContainer({
 
   const toFixed = (x: number, y: number) => {
     return Number(Number(x).toFixed(y));
-  }
+  };
   const onCrop = (event) => {
     const { x, y, width, height } = event.detail;
     setCropX(toFixed(x, 2));

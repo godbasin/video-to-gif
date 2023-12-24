@@ -1,3 +1,3 @@
 export interface IGifInfo {
-    url: string;
+  url: string;
 }

@@ -1,0 +1,7 @@
+# Ignore artifacts:
+node_modules
+public
+dist
+
+# Ignore all HTML files:
+**/*.html

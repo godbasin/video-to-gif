@@ -2,12 +2,12 @@ name: Deploy Site Files
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     paths-ignore: # 下列文件的变更不触发部署，可以自行添加
       - "docs/**"
       - README.md
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: write
@@ -21,26 +21,25 @@ jobs:
         node-version: [14.x, 16.x, 18.x]
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Npm Install
-      run: |
-        npm install
+      - name: Npm Install
+        run: |
+          npm install
 
-    - name: Build
-      run: |
-        npm run build
-        cp README.md dist/
+      - name: Build
+        run: |
+          npm run build
+          cp README.md dist/
 
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: website
-        folder: dist/
-        clean: true
-
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: website
+          folder: dist/
+          clean: true

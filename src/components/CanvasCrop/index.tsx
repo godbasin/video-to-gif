@@ -1,31 +1,31 @@
 import { Component } from "react";
 import CropperContainer from "./CropperContainer";
 import "cropperjs/dist/cropper.css";
-import './index.css';
+import "./index.css";
 
 interface IProps {
-  isCropping: boolean,
-  cropX: number,
-  setCropX: (x: number) => void,
-  cropY: number,
-  setCropY: (y: number) => void,
-  cropWidth: number,
-  setCropWidth: (w: number) => void,
-  cropHeight: number,
-  setCropHeight: (h: number) => void,
+  isCropping: boolean;
+  cropX: number;
+  setCropX: (x: number) => void;
+  cropY: number;
+  setCropY: (y: number) => void;
+  cropWidth: number;
+  setCropWidth: (w: number) => void;
+  cropHeight: number;
+  setCropHeight: (h: number) => void;
 }
 
 interface IStatus {
-  vedioImgUrl: string,
-  width: number,
-  height: number,
+  vedioImgUrl: string;
+  width: number;
+  height: number;
 }
 
 export default class CanvasCrop extends Component<IProps, IStatus> {
   constructor(props) {
     super(props);
     this.state = {
-      vedioImgUrl: '',
+      vedioImgUrl: "",
       width: 0,
       height: 0,
     };
@@ -34,7 +34,7 @@ export default class CanvasCrop extends Component<IProps, IStatus> {
   drawImage() {
     const video = document.getElementsByTagName("video")[0];
     const canvas = document.getElementsByTagName("canvas")[0];
-    if(!video || !canvas) return;
+    if (!video || !canvas) return;
     const ctx = canvas.getContext("2d")!;
     const videoHeight = video.videoHeight;
     const videoWidth = video.videoWidth;
@@ -42,7 +42,7 @@ export default class CanvasCrop extends Component<IProps, IStatus> {
     const width = video.width;
     const height = width / ratio;
     canvas.width = width;
-    canvas.height = height; 
+    canvas.height = height;
     ctx.drawImage(video, 0, 0, width, height);
     const dataURL = canvas.toDataURL();
     this.setState({
@@ -60,13 +60,14 @@ export default class CanvasCrop extends Component<IProps, IStatus> {
   }
 
   render() {
-    const { isCropping, setCropX, setCropY, setCropWidth, setCropHeight } = this.props;
+    const { isCropping, setCropX, setCropY, setCropWidth, setCropHeight } =
+      this.props;
     const { vedioImgUrl, width, height } = this.state;
-    return isCropping ?
+    return isCropping ? (
       <>
         <canvas id="video-canvas" className="video-canvas" />
-        {
-          vedioImgUrl && <CropperContainer
+        {vedioImgUrl && (
+          <CropperContainer
             setCropX={setCropX}
             setCropY={setCropY}
             setCropWidth={setCropWidth}
@@ -75,9 +76,8 @@ export default class CanvasCrop extends Component<IProps, IStatus> {
             width={width}
             height={height}
           />
-        }
+        )}
       </>
-    : null;
+    ) : null;
   }
 }
-
