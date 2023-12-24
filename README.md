@@ -16,7 +16,8 @@
 
 使用到的框架和库包括：
 - React + Vite + Typescript
-- ffmpeg
+- [ffmpeg](https://github.com/ffmpegwasm/ffmpeg.wasm)
+- [cropperjs](https://github.com/fengyuanchen/cropperjs)
 
 ## 如何使用
 
