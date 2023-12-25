@@ -4,10 +4,10 @@
 
 ## 支持的功能
 
-1. MP4 视频转 Gif。
-2. 选择视频开始和结束时间。
-3. 选择裁剪视频范围。
-4. 设置视频 FPS 和生成 GIF 图宽度。
+- :white_check_mark: MP4 视频转 Gif。
+- :white_check_mark: 选择视频开始和结束时间。
+- :white_check_mark: 选择裁剪视频范围。
+- :white_check_mark: 设置视频 FPS 和生成 GIF 图宽度。
 
 ## [点击此处访问页面](https://godbasin.github.io/video-to-gif/)
 
