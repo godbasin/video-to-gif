@@ -20,8 +20,8 @@ const toFixed = (x: number, y: number) => {
   return Number(Number(x).toFixed(y));
 };
 
-export default class CropperContainer extends Component<IProps, null> {
-  cropper: Cropper = null;
+export default class CropperContainer extends Component<IProps> {
+  cropper: any = null;
 
   constructor(props) {
     super(props);

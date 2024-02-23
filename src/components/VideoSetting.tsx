@@ -18,6 +18,7 @@ interface IProps {
   cropWidth: number;
   setCropWidth: (w: number) => void;
   cropOriginWidth: number;
+  setCropOriginWidth: (w: number) => void;
   cropHeight: number;
   setCropHeight: (h: number) => void;
   isCropped: boolean;
@@ -40,6 +41,7 @@ const VideoSetting = forwardRef(function VideoSetting(
     cropWidth,
     setCropWidth,
     cropOriginWidth,
+    setCropOriginWidth,
     cropHeight,
     setCropHeight,
     isCropped,
@@ -52,7 +54,7 @@ const VideoSetting = forwardRef(function VideoSetting(
   ffmpegRef: any,
 ) {
   const [fps = 12, setFps] = useState<number | undefined>();
-  const [width = 250, setWidth] = useState<number | undefined>();
+  // const [width = 250, setWidth] = useState<number | undefined>();
   const [validated, setValidated] = useState(false);
   const ffmpeg = ffmpegRef.current;
 
@@ -64,7 +66,8 @@ const VideoSetting = forwardRef(function VideoSetting(
       setLoadingPercentage(0);
       setTranscodeStatus(TRANSCODE_STATUES.TRANSCODING);
       await ffmpeg.writeFile("test.mp4", await fetchFile(videoUrl));
-      const cropRatio = width /cropOriginWidth;
+      // const cropRatio = width /cropOriginWidth;
+      const cropRatio = 1;
       const cropParam = isCropped
         ? `,crop=${cropWidth*cropRatio}:${cropHeight*cropRatio}:${cropX*cropRatio}:${cropY*cropRatio}`
         : "";
@@ -76,7 +79,7 @@ const VideoSetting = forwardRef(function VideoSetting(
         "-ss",
         `${startTime}`,
         "-filter_complex",
-        `[0:v] fps=${fps},scale=w=${width}:h=-1${cropParam},split [a][b];[a] palettegen [p];[b][p] paletteuse`,
+        `[0:v] fps=${fps},scale=w=${cropOriginWidth}:h=-1${cropParam},split [a][b];[a] palettegen [p];[b][p] paletteuse`,
         "-f",
         "gif",
         "out.gif",
@@ -113,7 +116,7 @@ const VideoSetting = forwardRef(function VideoSetting(
   checkValid();
 
   return (
-    <>
+    <div style={{ maxWidth: `${cropOriginWidth}px` }}>
       <Form id="gif-generate" noValidate>
         <Form.Group as={Row} className="mb-3">
           <Form.Label>开始时间（秒）：</Form.Label>
@@ -145,24 +148,34 @@ const VideoSetting = forwardRef(function VideoSetting(
         </Form.Group>
         {(isCropping || isCropped) && (
           <Form.Group as={Row} className="mb-3">
-            <Form.Label>裁剪：</Form.Label>
-            <Col>
-              x: <Form.Control
+            <Form.Label className="mb-1">裁剪相关设置：</Form.Label>
+            <Form.Label className="mb-1" style={{ textAlign: "right" }} column sm="5">X 坐标:</Form.Label>
+            <Col sm="7">
+              <Form.Control
                 type="number"
                 value={cropX}
                 onChange={(e) => setCropX(Number(e.target.value))}
               />
-              y: <Form.Control
+            </Col>
+            <Form.Label className="mb-1" style={{ textAlign: "right" }} column sm="5">Y 坐标:</Form.Label>
+            <Col sm="7">
+              <Form.Control
                 type="number"
                 value={cropY}
                 onChange={(e) => setCropY(Number(e.target.value))}
               />
-              width: <Form.Control
+            </Col>
+            <Form.Label className="mb-1" style={{ textAlign: "right" }} column sm="5">宽(px):</Form.Label>
+            <Col sm="7">
+              <Form.Control
                 type="number"
                 value={cropWidth}
                 onChange={(e) => setCropWidth(Number(e.target.value))}
               />
-              height: <Form.Control
+            </Col>
+            <Form.Label className="mb-1" style={{ textAlign: "right" }} column sm="5">高(px):</Form.Label>
+            <Col sm="7">
+              <Form.Control
                 type="number"
                 value={cropHeight}
                 onChange={(e) => setCropHeight(Number(e.target.value))}
@@ -187,17 +200,18 @@ const VideoSetting = forwardRef(function VideoSetting(
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3">
-          <Form.Label>width 宽度（px）：</Form.Label>
+          <Form.Label>视频宽度（px）：</Form.Label>
           <Col>
             <Form.Control
               type="number"
-              placeholder="默认值：250"
-              value={width}
-              onChange={(e) => setWidth(Number(e.target.value))}
-              isInvalid={!width}
+              placeholder="默认值：350"
+              value={cropOriginWidth}
+              onChange={(e) => setCropOriginWidth(Number(e.target.value))}
+              isInvalid={!cropOriginWidth}
+              disabled={isCropping}
             />
             <Form.Control.Feedback type="invalid">
-              请输入 width 宽度
+              请输入视频宽度
             </Form.Control.Feedback>
           </Col>
         </Form.Group>
@@ -214,7 +228,7 @@ const VideoSetting = forwardRef(function VideoSetting(
           </Col>
         </Form.Group>
       </Form>
-    </>
+    </div>
   );
 });
 

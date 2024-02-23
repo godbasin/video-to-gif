@@ -20,7 +20,7 @@ function App() {
   const [cropX, setCropX] = useState(0);
   const [cropY, setCropY] = useState(0);
   const [cropWidth, setCropWidth] = useState(0);
-  const [cropOriginWidth, setCropOriginWidth] = useState(0);
+  const [cropOriginWidth, setCropOriginWidth] = useState(350);
   const [cropHeight, setCropHeight] = useState(0);
   const [loadingPercentage, setLoadingPercentage] = useState(0);
   const [gifInfos, setGifInfos] = useState<IGifInfo[]>([]);
@@ -89,7 +89,7 @@ function App() {
                 setCropY={setCropY}
                 cropWidth={cropWidth}
                 setCropWidth={setCropWidth}
-                setCropOriginWidth={setCropOriginWidth}
+                cropOriginWidth={cropOriginWidth}
                 cropHeight={cropHeight}
                 setCropHeight={setCropHeight}
                 onFileChange={onFileChange}
@@ -150,6 +150,7 @@ function App() {
                   cropWidth={cropWidth}
                   setCropWidth={setCropWidth}
                   cropOriginWidth={cropOriginWidth}
+                  setCropOriginWidth={setCropOriginWidth}
                   cropHeight={cropHeight}
                   setCropHeight={setCropHeight}
                   isCropping={isCropping}

@@ -11,7 +11,7 @@ interface IProps {
   setCropY: (y: number) => void;
   cropWidth: number;
   setCropWidth: (w: number) => void;
-  setCropOriginWidth: (w: number) => void;
+  cropOriginWidth: number;
   cropHeight: number;
   setCropHeight: (h: number) => void;
   onFileChange: (e: { target: HTMLInputElement }) => void;
@@ -28,7 +28,7 @@ export default class LoadVideo extends Component<IProps> {
       setCropY,
       cropWidth,
       setCropWidth,
-      setCropOriginWidth,
+      cropOriginWidth,
       cropHeight,
       setCropHeight,
     } = this.props;
@@ -44,7 +44,7 @@ export default class LoadVideo extends Component<IProps> {
               className="object-fit-fill border rounded"
               controls
               style={{ display: isCropping ? "none" : "inline-block" }}
-              width="350"
+              width={cropOriginWidth}
               src={videoUrl}
             />
             <CanvasCrop
@@ -55,7 +55,6 @@ export default class LoadVideo extends Component<IProps> {
               setCropY={setCropY}
               cropWidth={cropWidth}
               setCropWidth={setCropWidth}
-              setCropOriginWidth={setCropOriginWidth}
               cropHeight={cropHeight}
               setCropHeight={setCropHeight}
             />
@@ -64,7 +63,7 @@ export default class LoadVideo extends Component<IProps> {
         {!videoUrl && (
           <label
             className="border rounded-3 align-items-center p-5 file-input-label"
-            style={{ width: "250px", textAlign: "center" }}
+            style={{ width: `${cropOriginWidth}px`, textAlign: "center" }}
             role="img"
           >
             <input type="file" onChange={onFileChange} />
