@@ -154,6 +154,7 @@ const VideoSetting = forwardRef(function VideoSetting(
               <Form.Control
                 type="number"
                 value={cropX}
+                disabled={!isCropping}
                 onChange={(e) => setCropX(Number(e.target.value))}
               />
             </Col>
@@ -162,6 +163,7 @@ const VideoSetting = forwardRef(function VideoSetting(
               <Form.Control
                 type="number"
                 value={cropY}
+                disabled={!isCropping}
                 onChange={(e) => setCropY(Number(e.target.value))}
               />
             </Col>
@@ -170,6 +172,7 @@ const VideoSetting = forwardRef(function VideoSetting(
               <Form.Control
                 type="number"
                 value={cropWidth}
+                disabled={!isCropping}
                 onChange={(e) => setCropWidth(Number(e.target.value))}
               />
             </Col>
@@ -178,6 +181,7 @@ const VideoSetting = forwardRef(function VideoSetting(
               <Form.Control
                 type="number"
                 value={cropHeight}
+                disabled={!isCropping}
                 onChange={(e) => setCropHeight(Number(e.target.value))}
               />
             </Col>

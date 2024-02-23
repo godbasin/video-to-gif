@@ -95,7 +95,7 @@ function App() {
                 onFileChange={onFileChange}
               />
               {videoUrl && (
-                <div className="btn-group mt-2 mb-3">
+                <div className="btn-group mt-2 mb-3" style={{ maxWidth: `${cropOriginWidth}px` }}>
                   {isCropping ? (
                     <>
                       <a
