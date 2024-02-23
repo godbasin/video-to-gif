@@ -62,7 +62,10 @@ export default class CanvasCrop extends Component<IProps, IStatus> {
   }
 
   render() {
-    const { isCropping, setCropX, setCropY, setCropWidth, setCropHeight } =
+    const {
+      isCropping, setCropX, setCropY, setCropWidth, setCropHeight,
+      cropX, cropY, cropHeight, cropWidth
+    } =
       this.props;
     const { vedioImgUrl, width, height } = this.state;
     return isCropping ? (
@@ -70,9 +73,13 @@ export default class CanvasCrop extends Component<IProps, IStatus> {
         <canvas id="video-canvas" className="video-canvas" />
         {vedioImgUrl && (
           <CropperContainer
+            cropX={cropX}
             setCropX={setCropX}
+            cropY={cropY}
             setCropY={setCropY}
+            cropWidth={cropWidth}
             setCropWidth={setCropWidth}
+            cropHeight={cropHeight}
             setCropHeight={setCropHeight}
             imageUrl={vedioImgUrl}
             width={width}

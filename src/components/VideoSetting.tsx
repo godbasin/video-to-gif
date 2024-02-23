@@ -12,11 +12,16 @@ interface IProps {
   startTime: number;
   endTime: number;
   cropX: number;
+  setCropX: (x: number) => void;
   cropY: number;
+  setCropY: (y: number) => void;
   cropWidth: number;
+  setCropWidth: (w: number) => void;
   cropOriginWidth: number;
   cropHeight: number;
+  setCropHeight: (h: number) => void;
   isCropped: boolean;
+  isCropping: boolean;
   transcodeStatus: TRANSCODE_STATUES;
   setLoadingPercentage: (percentage: number) => void;
   setTranscodeStatus: (status: TRANSCODE_STATUES) => void;
@@ -29,11 +34,16 @@ const VideoSetting = forwardRef(function VideoSetting(
     startTime,
     endTime,
     cropX,
+    setCropX,
     cropY,
+    setCropY,
     cropWidth,
+    setCropWidth,
     cropOriginWidth,
     cropHeight,
+    setCropHeight,
     isCropped,
+    isCropping,
     transcodeStatus,
     setTranscodeStatus,
     setGifInfos,
@@ -133,14 +143,29 @@ const VideoSetting = forwardRef(function VideoSetting(
             </Form.Control.Feedback>
           </Col>
         </Form.Group>
-        {isCropped && (
+        {(isCropping || isCropped) && (
           <Form.Group as={Row} className="mb-3">
             <Form.Label>裁剪：</Form.Label>
             <Col>
-              <Form.Control
-                disabled
-                type="text"
-                value={`x=${cropX}:y=${cropY}:width=${cropWidth}:height=${cropHeight}`}
+              x: <Form.Control
+                type="number"
+                value={cropX}
+                onChange={(e) => setCropX(Number(e.target.value))}
+              />
+              y: <Form.Control
+                type="number"
+                value={cropY}
+                onChange={(e) => setCropY(Number(e.target.value))}
+              />
+              width: <Form.Control
+                type="number"
+                value={cropWidth}
+                onChange={(e) => setCropWidth(Number(e.target.value))}
+              />
+              height: <Form.Control
+                type="number"
+                value={cropHeight}
+                onChange={(e) => setCropHeight(Number(e.target.value))}
               />
             </Col>
           </Form.Group>

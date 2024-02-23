@@ -144,10 +144,15 @@ function App() {
                   startTime={startTime}
                   endTime={endTime}
                   cropX={cropX}
+                  setCropX={setCropX}
                   cropY={cropY}
+                  setCropY={setCropY}
                   cropWidth={cropWidth}
+                  setCropWidth={setCropWidth}
                   cropOriginWidth={cropOriginWidth}
                   cropHeight={cropHeight}
+                  setCropHeight={setCropHeight}
+                  isCropping={isCropping}
                   isCropped={isCropped}
                   setLoadingPercentage={setLoadingPercentage}
                   transcodeStatus={transcodeStatus}
